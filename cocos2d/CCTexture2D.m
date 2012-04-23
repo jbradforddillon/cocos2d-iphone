@@ -798,8 +798,9 @@ static BOOL PVRHaveAlphaPremultiplied_ = NO;
 
 -(void) setAntiAliasTexParameters
 {
-	ccTexParams texParams = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
-	[self setTexParameters: &texParams];
+//	ccTexParams texParams = { GL_LINEAR, GL_LINEAR, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE };
+//	[self setTexParameters: &texParams];
+	[self setAliasTexParameters];
 }
 @end
 
