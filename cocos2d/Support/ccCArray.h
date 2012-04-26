@@ -494,7 +494,10 @@ static inline int mergesortL(ccCArray* array, size_t width, int (*compar)(const 
 
             if (m-j > 0)
             {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-non-pod-memaccess"
                 memcpy(B, &arr[j], (m-j) * width);
+#pragma clang diagnostic pop
             }
             
             i = 0;
