@@ -177,6 +177,8 @@ static SEL selSortMethod = NULL;
 		// sortMethod selector
 		selSortMethod = @selector(sortAllChildren);
 		sortMethod = (__typeof__(sortMethod))[self methodForSelector:selSortMethod];
+        
+        self.scale = CC_CONTENT_SCALE_FACTOR();
 	}
 	
 	return self;

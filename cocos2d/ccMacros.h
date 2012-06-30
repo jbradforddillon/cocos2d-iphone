@@ -239,7 +239,7 @@ do {															\
 /** @def CC_RECT_POINTS_TO_PIXELS
  Converts a rect in points to pixels
  */
-#define CC_RECT_POINTS_TO_PIXELS(__points__)																		\
+#define CC_RECT_POINTS_TO_PIXELS(__points__) __points__//\
 	CGRectMake( (__points__).origin.x * CC_CONTENT_SCALE_FACTOR(), (__points__).origin.y * CC_CONTENT_SCALE_FACTOR(),	\
 			(__points__).size.width * CC_CONTENT_SCALE_FACTOR(), (__points__).size.height * CC_CONTENT_SCALE_FACTOR() )
 
