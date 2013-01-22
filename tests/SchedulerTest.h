@@ -1,11 +1,7 @@
 #import "cocos2d.h"
+#import "BaseAppController.h"
 
-
-//CLASS INTERFACE
-@interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate>
-{
-	UIWindow	*window;
-}
+@interface AppController : BaseAppController
 @end
 
 @interface SchedulerTest : CCLayer
@@ -29,11 +25,31 @@
 {}
 @end
 
+@interface SchedulerPauseResumeAll : SchedulerTest
+{
+    NSSet* pausedTargets_;
+}
+@property(readwrite,retain) NSSet* pausedTargets;
+@end
+
+@interface SchedulerPauseResumeAllUser : SchedulerTest
+{
+    NSSet* pausedTargets_;
+}
+@property(readwrite,retain) NSSet* pausedTargets;
+@end
+
 @interface SchedulerUnscheduleAll : SchedulerTest
 {}
 @end
 
 @interface SchedulerUnscheduleAllHard : SchedulerTest
+{
+    BOOL actionManagerActive;
+}
+@end
+
+@interface SchedulerUnscheduleAllUserLevel : SchedulerTest
 {}
 @end
 
@@ -64,6 +80,32 @@
 {}
 @end
 
+@interface SchedulerTimeScale : SchedulerTest
+{
+#ifdef __CC_PLATFORM_IOS
+	UISlider	*sliderCtl;
+#elif defined(__CC_PLATFORM_MAC)
+	NSSlider	*sliderCtl;
+	NSWindow	*overlayWindow;
+#endif
+}
+@end
 
+@interface TwoSchedulers : SchedulerTest
+{
+	CCScheduler *sched1;
+	CCScheduler *sched2;
+	CCActionManager *actionManager1;
+	CCActionManager *actionManager2;
 
+#ifdef __CC_PLATFORM_IOS
+	UISlider	*sliderCtl1;
+	UISlider	*sliderCtl2;
+#elif defined(__CC_PLATFORM_MAC)
+	NSSlider	*sliderCtl1;
+	NSSlider	*sliderCtl2;
+	NSWindow	*overlayWindow;
+#endif
+}
+@end
 

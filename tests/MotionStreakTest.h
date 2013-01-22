@@ -1,20 +1,20 @@
-#import <UIKit/UIKit.h>
-#import "CCNode.h"
-#import "CCMotionStreak.h"
+
+
+#import "BaseAppController.h"
 
 @class CCSprite;
 
 //CLASS INTERFACE
-@interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate>
-{
-	UIWindow	*window;
-}
+@interface AppController : BaseAppController
 @end
 
 @interface MotionStreakTest : CCLayer
-{}
+{
+	CCMotionStreak *streak_;
+}
 
 -(NSString*) title;
+-(NSString*) subtitle;
 
 -(void) backCallback:(id) sender;
 -(void) nextCallback:(id) sender;
@@ -25,7 +25,6 @@
 {
 	CCNode* root;
 	CCNode* target;
-	CCMotionStreak* streak;
 }
 @end
 
@@ -33,8 +32,17 @@
 {
 	CCNode* root;
 	CCNode* target;
-	CCMotionStreak* streak;
 }
 @end
+
+@interface Issue1358 : MotionStreakTest
+{
+	CGPoint _center;
+	CGFloat _radius;
+	CGFloat _angle;
+}
+@end
+
+
 
 

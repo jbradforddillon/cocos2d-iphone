@@ -1,10 +1,8 @@
 #import "cocos2d.h"
+#import "BaseAppController.h"
 
 //CLASS INTERFACE
-@interface AppController : NSObject <UIApplicationDelegate>
-{
-	UIWindow	*window;
-}
+@interface AppController : BaseAppController
 @end
 
 @interface LayerTest: CCLayer
@@ -30,6 +28,21 @@
 @end
 
 @interface LayerGradient : LayerTest
+{
+}
+@end
+
+@interface LayerIgnoreAnchorPointPos : LayerTest
+{
+}
+@end
+
+@interface LayerIgnoreAnchorPointRot : LayerTest
+{
+}
+@end
+
+@interface LayerIgnoreAnchorPointScale : LayerTest
 {
 }
 @end

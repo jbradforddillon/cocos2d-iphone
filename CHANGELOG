@@ -1,3 +1,305 @@
+version 2.0.0 8-Jul-2012
+. [FIX] EventDispatcher: fixed ccMouseEnter/Exit
+. [FIX] LabelTTF: supports multiline even if no dimensions are provided
+. [FIX] Macros: CCLOGERROR defined in ccDeprecated as CCLOGWARN
+. [FIX] Scheduler: removeUpdateFromHash calls [target release] at the very end to prevent a possible crash
+. [FIX] Templates: Generate no-flicker-at-startup code
+		Improved Physics templates: multitouch and gravity+accel works OK
+. [FIX] TexturePVR: wrong type when calculating PVR lenght
+. [FIX] Xcode: Fixed compile errors and warnings in Xcode 4.5
+. [3RD] libpng: updated to 1.2.49
+
+version 2.0-rc2 03-Jun-2012
+. [NEW] Added Javascript test using JSCocoa (Mac only)
+			ActionTests, SpriteTests (WIP)
+. [NEW] Director: Added popToRootScene method
+. [NEW] RenderTexture: Added support for Depth Stencil
+. [FIX] Actions: CardinalSpline#copy uses tension (issue #1377)
+			CallFunc: fixed possible crash when releasing the action (issue #1369)
+. [FIX] ccArray: Implementation is no longer inlined. Needed for gen_bridge_metada.
+		Make it compatible with C99
+		Added __cplusplus #ifdef in header
+. [FIX] CocosDenshion: Fixed buffer overrun while resizing buffer (issue #1372)
+. [FIX] Director: Fixed memory leak when createStatsLabel was called more than once (issue #1373)
+. [FIX] FileUtils: easier to override the search folder
+		Added __cplusplus #ifdef in header
+. [FIX] LabelTTF: improved loading time. Label is updated only if the string is set.
+. [FIX] Macros: CCLOG doesn't log the function name. Only CCLOGWARN
+. [FIX] MenuItem: setIsEnabled can be called before setting the images
+. [FIX] Particle: Handles premultipled images correctly
+		Fixed possible memory leak when changing textures.
+		Examples: Removed ARCH_OPTIMAL_PARTICLE_SYSTEM since PointParticle is no longer supported
+. [FIX] SpriteFrameCache: plist is not loaded again if it was already loaded (performance)
+. [FIX] Texture2d: JPEG are loaded correctly on iOS4 (re-re-fixed issue #886)
+		Improved iOS5 allocation bug warning and internal conversions.
+		Fixed alpha when converting RGBA8 textures to RGB5A1
+. [3RD] Chipmunk Physics: Updated to v6.1.1
+
+version 2.0-rc1 19-Apr-2012
+. [NEW] v1.1 Forward-ported changes:
+		CCArray: new sorting methods, replaceObjectAtIndex, isEqualToArray
+		CCArray: equalilty is tested by isEqual instead of comparing pointer addresses
+		CCArray: CCARRAY_FOREACH macro is now ARC compatible
+		DrawPrimitives: Added new functions: ccDrawRect, ccDrawSolidRect
+		Macros: CCLOG logs the class/method name
+		Particles: The scheduler is removed on dealloc
+		TMX: fixed bug on release when parsing errors.
+. [NEW] Actions: Added Catmull Rom By/To and Cardinal Spline By/To actions
+. [NEW] ActionManager: Added support for pause/resume all actions of target
+. [NEW] Configuration: logs in which thread the director is running (Mac only)
+. [NEW] DrawingPrimitives: added ccDrawCatmullRom, ccDrawCardinalSpline
+. [NEW] FileUtils: It is a singleton (easier to subclass)
+		NSFileManager and NSBundle are properties (can be changed in runtime)
+		Added "fallback suffix" support for "get full path" and "remove suffix" (disabled by default).
+		On iPad the default suffix is "-ipad". Before it was ""
+. [NEW] LabelAtlas: added .plist config file support. Easier to migrate games to higher resolutions.
+. [NEW] LabelTTF: Added support for vertical alignment
+. [NEW] Tiled: TMX tile rotation is supported (issue #1350)
+. [FIX] All: Fixed compiler warnings. Format strings changed from %08X to %p
+. [FIX] Deprecated: displayedFrame points to displayFrame avoiding infinite loop (issue #1347)
+. [FIX] Director: Fixed projection. ViewPort is the size of the screen. Projection adjusted (issue #1355)
+		Fixed crash when calling "end" on RetinaDisplay
+		Only enable DepthTesting is the view has a depth buffer
+		Does not raise assert if startAnimation is called when it is already animated.
+. [FIX] Events: onMouseExit/Enter fixed on Mac
+. [FIX] LabelBMFont: can be "init" without further arguments
+		Glyphs with big yOffset are rendered correctly (issue #1343)
+. [FIX] LabelTTF: Better support for custom TTF (Mac)
+		Alignments and LineBreak modes values are the both on iOS and Mac. Needed for editors.
+. [FIX] MotionStreak: Fast mode works with textures (issue #1358)
+		The initial position will be the 1st "new" position. Prevents "tail" from (0,0)
+. [FIX] NSThread+Block: fixed crash due to block not being copied to the heap
+. [FIX] OpenGL: VAO are initialized on the cocos2d thread on machines that don't support shareables VAOs
+. [FIX] Scheduler: Logs warnings with better precision (.4f instead of .2f) (issue #1362)
+. [FIX] Sprite: setTexture when Batched, don't raise exception. Only if texture id is <> than batch.texture id
+. [FIX] Templates: LICENSE_cocosdension -> LICENSE_CocosDension (issue #1363)
+. [FIX] Texture: If defaultAlpha is RGBA8888 and image has no alpha, use RGBA8 instead of RGB565
+		PVR textures sets the glTexParams before creating the texture. faster.
+		PVR texture logs warning if NPOT + 16-bit textures, or if RGB888 textures are being used on iOS5
+		"PNG" textures: converts NPOT + 16 bit textures to POT on iOS5
+		More permissive assert on setTexParams() when CLAMP is used on NPOT textures
+
+version 2.0-rc0a 13-Mar-2012
+. [FIX] PerformanceTest: Compiles and run
+. [FIX] Tests: fixed shaders tests
+
+version 2.0-rc0 12-Mar-2012
+. [NEW] v1.1 Forward-ported changes:
+		Actions: CCRepeat ends as expected (issue #1288)
+		ColorLayer: incorrect size in init method
+		Denshion: Background music fades ok (issue #1304)
+		MenuItem: removed warning when deleting item
+		ParticleSystem: prevent bursts of particles due to too high emitCounter (issue #1201)
+		Sprite: fixed possible setColor and opacity
+		TileMap: Flipped tiles can be changed during runtime (issue #1264)
+		TileMap: Fixed a problem with multiple layers and multiple tile sets that could cause TMX maps to not load if rotation is used (issue #1302)
+		Types: Added convenience function to create a ccColor4F from color components
+. [NEW] Actions: Added ActionTargeted action. Useful to target other nodes from a sequence.
+. [NEW] Animation: Added new animation format that supports delays per frame, loops and notifications per frame
+. [NEW] Deprecated: Added CC_ENABLE_DEPRECATED in ccConfig.h. All deprecated functions, methods and classed are included by default.
+. [NEW] Director: When the stats are on, the number of GL draw calls per frame are displayed
+		Added support for main-thread director (Mac only. Needed for some editors)
+		Added KVO for isPaused (issue #1324)
+. [NEW] DrawingPrimitives: Added ccDrawPoly() free function
+. [NEW] LabelTTF: fontName, fontSize and dimensions are properties.
+		It is possible to init one without parameters
+. [NEW] LabelBMFont: added setFntFile method (issue #1119)
+		Added support for image offset in order to share the texture (issue #762)
+		Added support for any unicode char (issue #770)
+		Consumes less memory. Only defined Glyphs are allocated.
+. [NEW] FileUtils: Added support for iPad RetinaDisplay files (default suffix is: -ipadhd )
+. [NEW] Menu: could be created/initialized using NSArray
+		Menu could be created without items
+		Menu could be enabled/disabled (no events will be accepted when it is disabled)
+		It is possible to change its priority on runtime
+		Renamed kCCMenuTouchPriority -> kCCMenuHandlerPriority
+. [NEW] MenuItem: SpriteItem: Added setters for enabled,disabled,selected sprites
+		Added setter for targe:selector and block
+. [NEW] Node: Added userObject. Similar to userData, but it holds an id.
+		zOrder property is readwrite
+. [NEW] Particle: It is possible to resize the particle in runtime
+. [NEW] Sprite: spriteWithBatchNode / initWithBatchNode were removed. Use initWithTexture:batch.texture / spriteWithTexture:batch.texture instead
+. [NEW] TextureAtlas: Added option to not use VAO (might be a bit slower, but it consumes less memory)
+. [NEW] Texture2D: Added kCCTexture2DPixelFormat_RGB888 to the list of "default alpha pixel formats"
+. [NEW] TileMap: polygon, polilines and gid are parsed from the objects (issue #1311)
+. [FIX] All: replaced some NSLog() with CCLOG() is some parts of the code (issue #1250)
+. [FIX] Actions: Instant actions are trigged on stop and not start (issue #1305)
+. [FIX] CocosDenshion: fixed memory leak on CDBufferLoadRequest (issue #1286)
+. [FIX] CocosDenshion: fixed issue when background music looping was not respected on resume if playback was stopped (issue #1284)
+. [FIX] Director: It is possible to re-init a director after it has been quit (issue #1313)
+. [FIX] Director: becomes firstResponder after toggling fullscreen (Mac only) (issue #1189)
+. [FIX] DrawingPrimitives: drawColor4f() uses GLFloat instead of GLbyte (issue #1307)
+. [FIX] GLProgram: report error correctly if vertex shader has compile issues
+		Base shaders are no longer parsed files. Instead they are parsed from memory. Faster and ease the migration to v2.0
+. [FIX] GLView: Fixed memory leak while dispatching events (Mac only)
+. [FIX] GLView: MSAA support is working (issue #1315)
+. [FIX] Label: LabelBMFont fixed y-offset in RetinaDisplay (issue #1309)
+. [FIX] Node: flip, visible are no longer bitfields to prevent signed issues (issue #1314, issue #1287)
+. [FIX] Particles: Fixed memory leak in fillWithEmptyQuadsFromIndex
+. [FIX] Progress: works with rotated sprite frames (issue #1303)
+. [FIX] RenderTexture: If (running thread != cocos2d thread ) then it locks the OpenGL context. Prevents nasty crash
+		added newCGImage (issue #1214)
+		Added save buffer support on Mac
+		Refactored save code: easier to read and mantain
+. [FIX] Sprite: adding family of sprites to a batchnode works as expected (issue #1217)
+. [FIX] SpriteBatch: Quad extensions are public
+. [FIX] Templates: added -all_load -ObjC on "other linkers"
+. [FIX] Tests: LabelTest with custom TTF font works on Mac too
+. [FIX] Texture2D: initWithImage renamed with initWithCGImage
+		JPEG: No need to convert JPG to PNG on iOS4 (issue #886 re-fixed)
+		BMP: Images are displayed on iOS4 like on iOS5 (without alpha channel) [iOS5 BUG]
+		'Delete texture' is executed on current thread (not on main thread)
+. [FIX] TextureCache: async invokes callback on cocos2d thread (and not on main thread)
+. [FIX] Types: kCCResolutionStandard renamed to kCCResolutioniPhone
+
+version 2.0-beta2 17-Jan-2012
+. [NEW] v1.1 Forward-ported changes:
+		LabelTTF: word wrap works on Mac (issue #1074)
+		Node: Added onExitTransitionDidStart (issue #792)
+. [NEW] ActionManager: It is no longer a singleton. It is an ivar of director
+. [NEW] Director: it is a subclass of UIViewController (iOS only)
+. [NEW] Director: pushScene is the new recommended way to start the scene. Director will start the animation
+		automatically once the view is displayed (iOS only)
+. [NEW] Director: FPS & seconds per frame are displayed at the same time
+. [NEW] EventDispatcher / TouchDispatcher: They are no longer singletons. They are an ivar of director.
+. [NEW] GL View: Some classes were renamed to have more API concistency:
+		MacWindow -> CCWindow (Mac)
+		MacView -> CCGLView (Mac)
+		EAGLView -> CCGLView (iOS)
+		ESRenderer -> CCESRenderer (iOS)
+		ES2Renderer -> CCES2Renderer (iOS)
+		GLProgram -> CCGLProgram
+. [NEW] Macros: Using __CC_PLATFORM_IOS/MAC internally. Suggested way for games too.
+. [NEW] Menu: API CHANGE. "itemFrom..." was replaced with "itemWith..."
+. [NEW] Menu: target/selector pattern simulated with blocks. Before, blocks were simulated with target/selector
+. [NEW] MenuItem: overrides "cleanup" in order to break circular references.
+. [NEW] Node: Supports custom scheduler and actionManager
+. [NEW] Scheduler: It is no longer a singleton. It is an ivar of director
+. [NEW] Template: AppController use a navigation controller (like the cocos2d's tests)
+. [NEW] Template: cocos2d v2 and v1 templates can be installed at the same time
+. [NEW] Template: Added option for Device Family
+. [NEW] Test: Added Director tests. Tests integration with GameCenter and other UIKit components (iOS)
+. [NEW] Transitios: Added new transitions: CCTransitionProgressHorizontal, CCTransitionProgressVertical,
+		CCTransitionProgressInOut and CCTransitionProgressOutIn
+. [NEW] Transitions: CCTransitionRadial... renamed to CCTransitionProgressRadial...
+. [FIX] Actions: IntervalAction works OK in rewind mode
+. [FIX] Actions: EaseIn/EaseOut actions support float arguments
+. [FIX] Director: Uses DisplayLink timestamp. More stable delta times (iOS) (issue #1277)
+. [FIX] Director: CC_DIRECTOR_INIT() centers main window (Mac)
+. [FIX] Effects: 2D Effects and Transitions work as expected with a 2D projection
+. [FIX] Events: Events are removed/added from outside an event (Mac) (issue #1282)
+. [FIX] Events: Fixed memory leak when removing delegate (Mac)
+. [FIX] Grid: Fixed two big memory leaks (issue #1280)
+. [FIX] Grid: CCGrid3D was allocating 2x memory on Mac
+. [FIX] Menu: Blocks API doesn't crash on Mac
+. [FIX] RenderTexture: Works with RGB888 (issue #1293)
+. [FIX] RenderTexture: Supports NPOT textures (issue #1291)
+. [FIX] Shaders: example shaders have the "example_" prefix
+. [FIX] Sprite: isFrameDisplayed takes into accout the offset (issue #1295)
+. [FIX] Tests: ActionProgress, Box2dtest, ChipmunkTest, LayerTest, MotionStreakTest, NodeTest, RotateWorld and SceneTest work on Mac
+. [FIX] Tests: MenuTestBlocks removed. Merged into MenuTest
+. [FIX] Tests: ShaderTest works (issue #1285)
+. [FIX] Tests: ShaderTest centers shaders (Mac and iOS Retina Display)
+. [FIX] Texture2D: Uses CGImageRef instead of UIKit for iOS API
+. [FIX] TileMaps: Re-added "cc_vertexz" property
+. [3RD] Chipmunk: Using Chipmunk v6.0.3
+
+version 2.0-beta 27-Nov-2011
+. [NEW] v1.1 Forward-ported changes:
+		reorderSprite: faster reordering sprites/nodes
+		Particle batches: Particles support batch rendering
+		TMX parse from memory
+		events fixes
+		ARC compatible
+. [NEW] Director: Added API to display Milliseconds Per Frame
+. [NEW] LabelBMFont: Added support for alignment, also in multiline (issue #1178)
+. [NEW] Node: Added glServerState property. Ideal to enable/disabled blending for certain nodes.
+. [NEW] Particle: ParticlePoint removed
+. [NEW] Shader: Added AlphaTesting shader
+. [NEW] DrawingPrimitives: DrawPoint and PointSize fixed both on Mac and iOS. DrawPoly fixed on Mac
+. [FIX] Node#draw() Added helper macro to setup draw
+. [FIX] Node#draw() removed [super draw]. Draw() should be "atomic". It shall not depend on a possible state of super class.
+. [FIX] ccGLState: Added cache for texture unit and GL_BLEND
+. [FIX] Paticles: Faster initialization: texCoords are generated only once.
+. [FIX] SpriteFrameCache: readded API to create spriteFrames from CCTexture2D
+. [FIX] Shaders: Using correct precision. Fixed performance issue with iOS 5
+. [FIX] Shaders: Improved internal API and constants names
+. [FIX] Templates: Works when the project name contains spaces
+. [3RD] Chipmunk: Using Chipmunk v6.0.2
+
+version 2.0-alpha 18-Sept-2011
+. [NEW] Action: Added new CallBlockO action
+. [NEW] AtlasNode: added init method
+. [NEW] ccConfig: removed CC_USES_VBO since VBO is always used
+. [NEW] ccConfig: removed CC_OPTIMIZE_BLEND_FUNC_FOR_PREMULTIPLIED_ALPHA since the ccBlendFunctions keeps state
+. [NEW] ccConfig: removed CC_SPRITEBATCHNODE_DEBUG_DRAW. CC_SPRITE_DEBUG_DRAW can be used both for batches and non batches.
+. [NEW] ccConfig: renamed CC_COCOSNODE_RENDER_SUBPIXEL to CC_NODE_RENDER_SUBPIXEL
+. [NEW] ccGLState: added helper functions that keeps the GL state
+. [NEW] CCProgressTimer:
+            - Convenience class constructor now passes in CCSprite (this gives developers easier access to timer with CCSpriteFrames, CCSprites, etc)
+            - Reduced the progress timer types to just radial and bar - added in reverse, midpoint, barChangeRate to be have more flexible options to modify the progress.
+			- Supports Tint + Color
+. [NEW] Director: Removed Fast, FastThreaded and NSTimer director. The only one available is DisplayLink.
+. [NEW] Director: Orientations are no longer supported. Only Portrait mode is supported. Use a ViewController to rotate the EAGL view.
+. [NEW] Director: The FPS position can be configured via ccConfig.h file
+. [NEW] Director: Fast FPS is the only supported way to display FPS. Removed the CCLabelTTF way of doing it
+. [NEW] Macros: ccgl* replaced with ccGL*
+. [NEW] Macros: CC_ENABLE/DISABLE_DEFAULT_STATE: Removed. No longer needed.
+. [NEW] MotionStreak: Using new motion streak code. 10x faster than the old one.
+. [NEW] OpenGL ES: Added support for OpenGL ES 2.0. OpenGL ES 1.1 is no longer supported
+. [NEW] ParticleQuad: Uses VAO for rendering. Indices are part the VBO.
+. [NEW] ParticlePoint: removed code. It is a subclass of ParticleQuad for compatibility.
+. [NEW] Profiler: API heavily updated to make it easier to integrate into any kind of component
+. [NEW] Sprite: initWithTexture:rect is the designated initializer
+. [NEW] Sprite: removed pixels API.
+. [NEW] Sprite: useSelfRender / useBatchNode replaced with setBatchNode
+. [NEW] Sprite: Improved API in order to make it easier to create DoubleResolution sprites
+. [NEW] SpriteBatchNode / Sprite / Node: Simplied rendering. Easiert to integrate with physics engines. Just subclass nodeToParentTransform().
+. [NEW] SpriteBatchNode: Removed support for HONOR_PARENT_TRANSFORM.
+. [NEW] SpriteFrameCache: addSpriteFramesWithFile:textureFile renamed to addSpriteFramesWithFile:textureFilename to be consistent with the new API
+. [NEW] Templates: Removed Xcode3 templates. Updated Xcode4 templates.
+. [NEW] Templates: Box2d & Chipmunk templates use new way to sync cocos2d and physics engine by using PhysicsSprite
+. [NEW] Tests: All tests use RootViewController
+. [NEW] Tests: Box2d + cocos2d test: Added PhysicsSprite and other Box2d best practices
+. [NEW] Tests: Chipmunk + cocos2d test: Added PhysicsSprite and other Chipmunk's best practices
+. [NEW] Tests: FontTest uses  "bundle" fonts instead of FontLabel
+. [NEW] Tests: Removed HelloWorld* tests
+. [NEW] Tests: TextureTest has TextureCache#asyncWithBlock test
+. [NEW] Tests: Removed Chipmunk iOS TestBed since it was outdated
+. [NEW] Texture: Uses NPOT textures (gles20 already supports them)
+. [NEW] Texture: PVRTC-RAW format is no longer supported. Use the non-raw format instead.
+. [NEW] TextureAtlas: Uses VAO for rendering
+. [NEW] TextureCache: Added asyncWithBlock method
+. [NEW] Tiled: cc_vertexz property is no longer supported. Will raise exception if found.
+. [FIX] All: Removed deprecated methods and classes that were scheduled for removal post 1.0
+. [FIX] Node: slightly faster nodeToParentTransform()
+. [FIX] ProgressTimer: reverse renamed to reverseDirection in order to prevent possible collision with action#reverse
+. [FIX] RenderTexture: getUIImageFromBuffer doesn't return artifacs
+. [FIX] TextureCache: Uses "self" instead of "CCTextureCache" in shared instance
+. [FIX] Sprite: displayedFrame correctly returns originalSize
+. [FIX] SpriteFrameCache: it doesn't retain the textures when they are loaded from a dictionary file (issue #1227)
+. [FIX] Xcode: cocosLive: Removed. Use OpenFeint or GameCenter instead
+. [FIX] Xcode: FontLabel: Removed since in iOS 4 you can load custom TTF
+. [FIX] Xcode: TouchJSON: Removed. No longer needed since cocosLive was removed
+. [FIX] Xcode: Tremor / vorbis: Removed. Experimental sound engine is no longer supported
+. [FIX] Xcode: iOS 4 is minimun required to run
+. [3RD] Box2d: Using Box2D 2.2.1
+. [3RD] Chipmunk: Using Chipmunk v6.0.1
+. [3RD] Kazmath: New external library. kazmath library for matrix and projection operations, and matrix GL stack
+. [3RD] Kazmath: Added ARM NEON Matrix Multiplication from Oolong project
+
+version 1.1-rc0 .. -..-2012
+. [NEW] Macros: made CCLOG a bit more verbose
+. [NEW] CCSprite: added useTrimmedFrameForAnchorPoint property. This makes the trimmed frame frame of reference for the anchorpoint and contentSize.
+. [FIX] CCAnimation: bug in addFrames that resulted in incorrect delayPerUnit (issue #1341)
+. [FIX] CCSprite: CCSprite bug in setDisplayFrameWithAnimationName
+. [FIX] CCParticleSystem: unschedule update method when deallocated
+. [FIX] CCParticleSystemQuad: Changed animation property to particleAnimation, for compiler warning
+. [FIX] CCRenderTexture: fixed getUIImageFromBuffer
+. [FIX] CCTouchDispatcher: fixed crash after showing UIAlertView (issue #1279)
+. [FIX] CCGrabber: added log message to warn that grabber doesn't support transparent parts with a color buffer of RGB565
+. [FIX] Compiler: fixed unrecognised clang pragmas so cocos can still be compiled with LLVM version < 2.0. 
+
 version 1.1-beta2b 14-Mar-2012
 . [FIX] CCUtils: missing method declaration
 
@@ -222,7 +524,7 @@ version 0.99.5 - 16-Dec-2010
 . [FIX] Templates: removeStartup compiles (issue #1059)
 . [FIX] Texture: PVR with non-square mipmaps generates a warning log in debug mode (issue #1052)
 . [FIX-MAC] Display Link thread: async images works as expected. Enabled by default.
-. [FIX-MAC] MacGLView: VSync is enabled when the view is loaded from the NIB
+. [FIX-MAC] EAGLView: VSync is enabled when the view is loaded from the NIB
 . [TEST] Added Glyph Designer test case
 . [TEST] Added LayerGradient test
 . [TEST-MAC] Added cocos2d icon to Mac tests
@@ -230,7 +532,7 @@ version 0.99.5 - 16-Dec-2010
 . [3RD] Chipmunk: Updated to v5.3.4
 . [3RD] libpng: don't compile pngtest.c (issue #1058)
 
- 
+
 version 0.99.5-rc1 - 15-Nov-2010
 . [NEW] Director: setProjection calls "updateProjection" delegate if "custom" projection is used
 . [NEW] Label: The CCLabelProtocol implements the -(NSString*)string method.
@@ -318,7 +620,7 @@ version 0.99.5-beta3 23-Sep-2010
  . [FIX] Texture2d: If Text in context can't be created return nil (prevent possible crash)
  . [FIX] Texture2d: Optimized loading time of PVR images
  . [FIX] Transitions: PageTurn3D transition has fewer visible artifacts (issue #751)
- 
+
 version 0.99.5-beta2 31-Ago-2010
  . [NEW] Actions: files renamed: CCXXXAction.[hm] -> CCActionXXX.[hm]
  . [NEW] Actions: Using new naming convetion:
@@ -359,7 +661,7 @@ version 0.99.5-beta2 31-Ago-2010
  . [FIX] Tools: mkatlas supports artifact removal (issue #549)
  . [FIX] Tools: mkatlas supports spaces in the name (issue #618)
  . [3RD] Chipmunk: updated to Chipmunk v5.3 and Chipmunk Demos
- 
+
 version 0.99.5-beta 30-Jul-2010 - AKA 'CJ the artifact killer'
  . [NEW] BitmapFontAtlas: added support for multilines labels
  . [NEW] BitmapFontAtlas: added optional setCString method
@@ -388,7 +690,7 @@ version 0.99.5-beta 30-Jul-2010 - AKA 'CJ the artifact killer'
  . [FIX] Tests: CocosLive Demo: added requestRank tests
  . [FIX] TextureCache: JPEG workaround (issue #866) is only applied on iOS >= 4 (issue #932)
  . [3RD] libpng: updated to v1.2.44 (libpng is only used by a cocos2d test)
- 
+
 version 0.99.4 - 14-Jul-2010
  . [NEW] CocosDenshion: switching between background and foreground music (issue #928)
  . [FIX] CocosDenshion: fixed memory leak weak reallocing buffers (issue #919)
@@ -402,7 +704,7 @@ version 0.99.4 - 14-Jul-2010
  . [FIX] GLES-Render: solid objects' colors synced with box2d repository
  . [FIX] Scheduler: Doesn't reschedule already scheduled method. It only updates the interval.
  . [FIX] Templates & Tests: added App Delegate foreground & background callbacks
- 
+
  version 0.99.4-rc3 - 01-Jul-2010
  . [FIX] All: Import ccCArray instead of ccArray (compiles in case sentive file system)
  . [FIX] CCArray: fixed overflow (issue #901)
@@ -487,7 +789,7 @@ version 0.99.3-rc - 18-May-2010
  . [FIX] Scheduler: Improved performance (issue #492)
  . [FIX] Templates: Using uthash instead of ccHashSet (issue #860)
  . [FIX] Templates: templates can be installed in user directory (issue #856)
- 
+
 version 0.99.2 - 28-Apr-2010
  . [FIX] ActionManager: removeByTag doesn't crash if action is also running (issue #841)
  . [FIX] cocos2d/*.m: fixed several memory leaks in cases where initXXX failed (issue #XXX)
@@ -524,7 +826,7 @@ version 0.99.2-rc - 15-Apr-2010
  . [FIX] SpriteFrameCache: logs warning if frame is not found
  . [FIX] Xcode: uses optimized binary. ARMv7 binary has thumb-2 enabled (issue #XXX)
  . [3RD] Box2d: updated to SVN r91 (v2.1.1)
- 
+
 version 0.99.1 - 19-Mar-2010
  . [FIX] Menu: If menu is not visible it doesn't receive touches (issue #88)
  . [FIX] Menu: MenuItemLabel restores the scale property (issue #500)
@@ -590,7 +892,7 @@ version 0.99.0-final - 15-Feb-2010
  . Tests: SpriteTest uses GL_ALPHA_TEST is zVertex test (issue #XXX)
  . TMX: filling empty tiles doesn't crash (issue #740)
  . TMX: if compression is not "gzip", abort (tiled 0.4 feature) (issue #XXX)
- 
+
 version 0.99.0-rc - 31-Jan-2010
  . All: Default OpenGL state is: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY (issue #718)
  . Action: Improved CCSequence performance (issue #XXX)
@@ -624,7 +926,7 @@ version 0.99.0-rc - 31-Jan-2010
  . TMXMaps: groupNamed renamed to objectGroupNamed (issue #XXX)
  . TouchDispatcher: StandardTouchHandler returns void (not BOOL). They are executed after the TargetedHandlers (issue #710)
  . Xcode: doxygen scripts runs with spaces in subdirectories (issue #684)
- 
+
 version 0.9.0-beta2 - 11-Jan-2010
  . Actions: added 2 new instant actions: FlipX and FlipY (counter-rollback of part issue #620)
  . Actions: uses FLT_EPSILON constant (issue #701)
@@ -653,7 +955,7 @@ version 0.9.0-beta2 - 11-Jan-2010
  . TMXTiledMap: TMXLayer and TMXObjectGroup on it's own files (part of issue #636)
  . TMXTiledMap: doesn't generate descendants when not necessary (works as fast as in v0.8.2)
  . TMXTiledMap: removeChild works without corrupting the tilemap (issue #XXX)
- 
+
 version 0.9.0-beta - 14-Dic-2009
  . ActionManager: fixed leak (issue #635)
  . Actions: using [self class]. Easier to subclass (issue #655)
@@ -705,7 +1007,7 @@ version 0.8.2 - 19-Oct-2009
  . CocosLive: doesn't use deprecated methods (issue #604)
  . MenuItem: added isSelected property (issue #601)
  . Tests: removed copyrighted fonts (part of issue #596)
- 
+
 version 0.8.2-rc1 - 14-Oct-2009
  . Actions: start/stop sets the target (issue #489 and issue #589)
  . Actions: Compound actions call "inner" stop (issue #489 and #issue #589)
@@ -720,7 +1022,7 @@ version 0.8.2-rc1 - 14-Oct-2009
  . Tests: Added Particle + Parallax test (part of issue #241)
  . TileMap: TMXLayers work without tiles (issue #587)
  . TileMap: TMX maps HUGE performance boost (issue #574)
- 
+
 version 0.8.2-rc0 - 5-Oct-2009
  . Actions: Added EaseBack family actios (issue #568)
  . AtlasSprite: set atlasIndex to invalid on remove (issue #569)
@@ -735,7 +1037,7 @@ version 0.8.2-rc0 - 5-Oct-2009
  . Templates: works with FontLabel (part of issue #534)
  . Templates: added cocos2d+chipmunk template (issue #XXX)
  . TextureAtlas: insertQuad fixed signed math (issue #575)
- 
+
 version 0.8.2-beta - 23-Sept-2009
  . All: ccConfig.h file added (issue #551)
  . Actions: added Ease Elastic actions (issue #530)
@@ -764,7 +1066,7 @@ version 0.8.2-beta - 23-Sept-2009
  . TileMap: TMX raises expection if map is not encoded and/or gzipped (issue #559)
  . Transition: ease actions can be overriden (issue #548)
  . Transition: added PageTurnTransition (issue #522)
- 
+
 version 0.8.1 - 26-Ago-2009
  . ActionManager: doesn't delete running actions (issue #481)
  . Box2d: using google code r10 (pre v2.1.0) (issue #494)
@@ -789,7 +1091,7 @@ version 0.8.1-rc - 19-Ago-2009
  . TileMap: TMX getter/setters works OK with async maps (issue #506)
  . TileMap: anchorPoint works OK (issue #508)
  . Xcode: COCOS2D_DEBUG used instead of DEBUG (issue #507)
- 
+
 version 0.8.1-beta - 10-Ago-2009
  . BitmapFontAtlas: .png image can be in subfolders (issue #464)
  . Box2d: possibility to call world.DrawDebugData() from draw (issue #493)
@@ -813,7 +1115,7 @@ version 0.8 - 27-Jul-2009
  . BitmapFontAtlas: opacity and color work as expected (issue #463)
  . CocosNode: setRelativeAnchorPoint error (issue #461)
  . Director: convertCoordinate roundoff error (issue #453)
- 
+
 version 0.8-rc2 - 21-Jul-2009
  . Actions: Repeat repeats OK (issue #424)
  . Actions: Prevents division by 0 when duration==0 (issue #452)
@@ -835,7 +1137,7 @@ version 0.8-rc2 - 21-Jul-2009
  . TextureMgr: new (and recommended) way to add CGImages (issue #349)
  . TouchDispatcher: retains/releases the delegates (issue #422)
  . Transitions: Fixed artifacts in Slide transitions (issue #442)
- 
+
 version 0.8-rc - 13-Jul-2009
  . ActionManager: actions logic were removed from CocosNode (issue #437)
  . Actions/Scheduler: the 1st time a Timer or Action is fired, is with dt=0 (issue #429)
@@ -952,7 +1254,7 @@ version 0.7.2 - 23-Apr-2009
  . TileMapAtlas: supports fullpath (issue #220)
  . TileMapAtlas: don't render in subpixels (issue #135)
  . Xcode project: added class model (issue #312)
- 
+
 version 0.7.1 - 20-Mar-2009
  . Actions: added tags to actions (issue #222)
  . Actions: Spawns can be Speeded (issue #257)
@@ -1023,7 +1325,7 @@ version 0.7.0 - 19-Feb-2009
                 FadeTRTransition, FadeBLTransition, FadeUpTransition, FadeDownTransition (issue #187)
   . Xcode: treat warnings as errors (issue #201)
 
- 
+
 version 0.6.3 - 28-Jan-2009
  . Actions: ScaleTo & ScaleBy supports X and Y factors (issue #156)
  . Actions: Added collections of Ease Actions (issue #157)
@@ -1065,12 +1367,12 @@ version 0.6.2 - 24-Dec-2008
  . Sprite & Animation: can be created from Texture2D, updated SpriteDemo example (issue #113)
  . TextureMgr: Avois duplicate cache (issue #121)
  . Transitions: FadeTransition supports variable color. Updated TransitionsDemo (issue #129)
- 
+
 version 0.6.1 - 08-Dec-2008
  . Documentation: Generation of doc fixes (issue #105)
  . Primitives: drawLine prototype fixed (issue #103)
  . Xcode: all projects have "thumb compilation" turned off (issue #104)
- 
+
 version 0.6.0 - 05-Dec-2008
  . Actions: Sequences of Repeats fixes (issue #80)
  . Actions: Added RepeatForEver. Added example in SpritesDemo example (issue #93)
@@ -1095,7 +1397,7 @@ version 0.5.3 - 18-Nov-2008
  . CocosNode: removeAll fixes (issue #74)
  . CocosNode: stopAction fix (issue #82)
  . CocosNode: supports flipX and flipY (issue #53)
- . CocosNode: supports scaleX and scaleY (issue #54) 
+ . CocosNode: supports scaleX and scaleY (issue #54)
  . Layer: isTouchEnabled, isAccelerometerEnabled are properties (issue #70)
  . Menu: supports CocosNodeOpacity protocol (issue #76)
  . MultiplexLayer: added switchToAndReleaseMe (issue #71)
@@ -1130,7 +1432,7 @@ version 0.5.1 - 20-Oct-2008
  . LabelAtlas: works with NxM size images (issue #50)
  . MenuItem: supports enable/disable (issue #22)
  . Particle system: exports more variables (issue #48)
- 
+
 version 0.5.0 - 05-Oct-2008
  . Actions: copy protocol fixed on some actions (issue #27)
  . Chipmunk: using newest version from svn (issue #34)
@@ -1181,7 +1483,7 @@ version 0.4.1 - 08-Sept-2008
  . Transitions: Added new ZoomFlipXTransition transition.
  . Transitions: Added new ZoomFlipYTransition transition.
  . Transitions: Added new ZoomFlipAngularTransition transition.
- 
+
 version 0.4.0 - 30-Ago-2008
  . CocosNode: private methods are private
  . CocosNode: stop renamed to stopAllActions
@@ -1193,7 +1495,7 @@ version 0.4.0 - 30-Ago-2008
  . MenuItem: added MenuItemImage
  . MenuItem: uses target/selector, not receiver/selector
  . MenuItem: MenuItemFont restore scale to 1.0 after being invoked (by Codemattic)
- . MenuItem: can be positioned on runtime. 
+ . MenuItem: can be positioned on runtime.
  . TextureNode: renamed setR:g:b: to setRGB:::
 
 version 0.3.3 - 23-Ago-2008
@@ -1239,7 +1541,7 @@ version 0.3.1 - 30-Jul-2008
  . Types: created ccTime type (float or double) used to calculate delta time
  . Types: older types have the prefix "cc" (cocos)
 
- 
+
 version 0.3.0 - 27-Jul-2008
  . Actions: they are not cloned. If you want to reuse them, clone them manually using the method 'copy'
  . Actions: CallFunc, CallFuncN using performSelector instead of NSInvocator
@@ -1259,7 +1561,7 @@ version 0.3.0 - 27-Jul-2008
  . Texture Node: Added transform anchor support
  . Texture Node: Added color suppport
  . Texture Node: Added new cocos2d node. Base class of Sprite and Label
- 
+
 
 version 0.2.1 - 21-Jul-2008
  . Director: landscape can be RIGHT or LEFT (at compile time)

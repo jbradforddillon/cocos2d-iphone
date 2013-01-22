@@ -1,29 +1,10 @@
 #import "cocos2d.h"
+#import "BaseAppController.h"
 
 @class CCSprite;
 
-//CLASS INTERFACE
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-@interface AppController : NSObject <UIApplicationDelegate>
-{
-	UIWindow *window;
-}
+@interface AppController : BaseAppController
 @end
-
-#elif defined(__MAC_OS_X_VERSION_MAX_ALLOWED)
-@interface cocos2dmacAppDelegate : NSObject <NSApplicationDelegate>
-{
-	NSWindow	*window_;
-	MacGLView	*glView_;
-}
-
-@property (assign) IBOutlet NSWindow	*window;
-@property (assign) IBOutlet MacGLView	*glView;
-
-- (IBAction)toggleFullScreen:(id)sender;
-
-@end
-#endif // Mac
 
 @interface ActionDemo : CCLayer
 {
@@ -75,7 +56,7 @@
 
 @interface ActionAnimate : ActionDemo
 {
-  id observer_;
+	id observer_;
 }
 @end
 
@@ -140,6 +121,19 @@
 {}
 @end
 
+@interface ActionCatmullRom : ActionDemo
+{
+	CCPointArray *array1_;
+	CCPointArray *array2_;
+}
+@end
+
+@interface ActionCardinalSpline : ActionDemo
+{
+	CCPointArray *array_;
+}
+@end
+
 @interface ActionRepeatForever : ActionDemo
 {}
 @end
@@ -160,5 +154,34 @@
 @end
 
 @interface ActionTargeted : ActionDemo
+{}
+@end
+
+@interface PauseResumeActions : ActionDemo
+{
+    NSSet* pausedTargets_;
+}
+@property(readwrite,retain) NSSet* pausedTargets;
+@end
+
+@interface Issue1305 : ActionDemo
+{
+	CCSprite *spriteTmp_;
+}
+@end
+
+@interface Issue1305_2 : ActionDemo
+{}
+@end
+
+@interface Issue1288 : ActionDemo
+{}
+@end
+
+@interface Issue1288_2 : ActionDemo
+{}
+@end
+
+@interface Issue1327 : ActionDemo
 {}
 @end
