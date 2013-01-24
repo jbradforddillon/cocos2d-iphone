@@ -876,14 +876,15 @@ static BOOL PVRHaveAlphaPremultiplied_ = NO;
 
 -(void) setAntiAliasTexParameters
 {
-	ccGLBindTexture2D( name_ );
-	
-	if( ! hasMipmaps_ )
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-	else
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST );
-
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );	
+    [self setAliasTexParameters];
+//	ccGLBindTexture2D( name_ );
+//	
+//	if( ! hasMipmaps_ )
+//		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+//	else
+//		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST );
+//
+//	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );	
 }
 @end
 
